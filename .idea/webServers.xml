@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7123b41a-0538-4189-8fdf-4cfa704efb9d" name="pmserver.ddns.net:">
+        <fileTransfer rootFolder="/home" accessType="SFTP" host="pmprocess.ddns.net" port="45003" sshConfigId="fb383d82-fd38-4cb2-a3fb-fd9c45cf50ee" sshConfig="pmserver@pmprocess.ddns.net:45003 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
