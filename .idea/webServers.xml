@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="7123b41a-0538-4189-8fdf-4cfa704efb9d" name="pmserver.ddns.net:">
-        <fileTransfer rootFolder="/home" accessType="SFTP" host="pmprocess.ddns.net" port="45003" sshConfigId="fb383d82-fd38-4cb2-a3fb-fd9c45cf50ee" sshConfig="pmserver@pmprocess.ddns.net:45003 password">
+      <webServer id="8db5628b-3ee8-47d0-8ee2-b7edece37630" name="pascerthai.online" url="http://pascerthai.online">
+        <fileTransfer rootFolder="/domains/pascerthai.online/public_html/" host="pascerthai.online" port="2002">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
