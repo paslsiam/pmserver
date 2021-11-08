@@ -2,7 +2,8 @@
 <head>
     <title>ThaiCreate.Com Tutorials</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
 
@@ -11,16 +12,18 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $("#btnSend").click(function() {
-
-            var jsonObj = {"name":"Wisarut Nukitram", "age": "39"}
+        $("#btnSend").click(function(e) {
+            e.preventDefault();
+            var username = 'admin';
+            var password = 'admins';
 
             $.ajax({
                 type: "POST",
-                url: "post.php",
-                data: jsonObj,
-                success: function(result) {
-                    alert(result);
+                url: "http://pascerthai.online/clientPost.php",
+                dataType: "JSON",
+                data: {callService:'getUserData' ,users:username, pass:password },
+                success : function(data){
+                   console.log(data);
                 }
             });
 

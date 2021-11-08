@@ -1,12 +1,10 @@
 <?php
-// Pull in the NuSOAP code
+
 require_once('lib/nusoap.php');
 
-// Create the server instance
 $server = new soap_server();
 $server->configureWSDL('PmServer', 'urn:PmServer');
 $server->wsdl->schemaTargetNamespace = 'urn:PmServer';
-// SOAP complex type return type (an array/struct)
 $server->wsdl->addComplexType(
     'Person',
     'complexType',
@@ -17,31 +15,52 @@ $server->wsdl->addComplexType(
         'type' => 'xsd:int'))
 );
 
-// Register the "hello" method to expose it
+//########### Register
 $server->register('getUserData',
     array('strUsername' => 'xsd:string','strPassword' => 'xsd:string'),   // parameter
     array('return' => 'xsd:string'),     // output
-    'urn:server',                        // namespace
-    'urn:server#helloServer',            // soapaction
+    'urn:PmServer',                        // namespace
+    'urn:PmServer#GetUserData',            // soapaction
     'rpc',                               // style
     'encoded',                           // use
-    'Just say hello');                   // description
+    'Get user information');                   // description
 
-// Implement the "getUserData" method as a PHP function
+$server->register('createUser',
+    array('strUsername' => 'xsd:string','strPassword' => 'xsd:string'),   // parameter
+    array('return' => 'xsd:string'),     // output
+    'urn:PmServer',                        // namespace
+    'urn:PmServer#CreateUser',            // soapaction
+    'rpc',                               // style
+    'encoded',                           // use
+    'Create user data');                   // description
+
 function getUserData($username,$password) {
     require ('db_connect.php');
     $sql = "CALL PR_getUser('".$username."','".$password."')";
     $query = mysqli_query($conn,$sql);
     $rowcount=mysqli_num_rows($query);
     if($rowcount!=0){
-        $data["statu"]='succress';
+        $data['status']='succress';
     }else{
-        $data["statu"]='nonsuccress';
+        $data['status']='nosuccress';
     }
     return json_encode($data);
+    //preview : {"status":"nosuccress"} from return json_encode($data) ;
 }
 
-// Use the request to invoke the service
+function createUser($username,$password) {
+    require ('db_connect.php');
+    $sql = "CALL PR_createUser('".$username."','".$password."')";
+    $query = mysqli_query($conn,$sql);
+    $rowcount=mysqli_num_rows($query);
+    if($rowcount!=0){
+        $data['status']='succress';
+    }else{
+        $data['status']='nosuccress';
+    }
+    return json_encode($data);
+    //preview : {"status":"nosuccress"} from return json_encode($data) ;
+}
 $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA)
     ? $HTTP_RAW_POST_DATA : '';
 @$server->service(file_get_contents("php://input"));
